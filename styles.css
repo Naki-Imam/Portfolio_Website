@@ -614,89 +614,39 @@ a {
   margin: 0 auto;
 }
 
-/* Video Stage (Media & Overlay) */
+/* Video Stage (Media Container) */
 .video-stage {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: flex;
-}
-
-.video-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.inline-video-card:hover .video-poster {
-  transform: scale(1.04);
-}
-
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition-smooth);
-  z-index: 2;
-}
-
-.inline-video-card:hover .video-overlay {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-.play-button-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--accent-orange);
-  color: #08090b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px var(--accent-orange-glow);
-  border: none;
-  cursor: pointer;
-  transition: var(--transition-smooth);
-  padding: 0;
-}
-
-.aspect-9-16 .play-button-icon {
-  width: 48px;
-  height: 48px;
-}
-
-.inline-video-card:hover .play-button-icon {
-  background: var(--accent-orange-hover);
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(252, 163, 17, 0.55);
-}
-
-/* Native Video Player inside Card */
-.native-video-player {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background: #000;
   border-radius: inherit;
+}
+
+/* Direct Google Drive Player Embed - Header clipped with negative top for clean view */
+.inline-video-iframe {
+  position: absolute;
+  top: -56px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 56px);
+  border: none;
   background: #000;
   display: block;
-  z-index: 1;
 }
 
-/* Inline Playing State */
-.inline-video-card.is-playing .video-stage {
+/* 9:16 Vertical Cards: Horizontally scale to center vertical video and eliminate black bars */
+.aspect-9-16 .inline-video-iframe {
+  position: absolute;
+  top: -56px;
+  left: -108.025%;
+  width: 316.05%;
+  height: calc(100% + 56px);
+  border: none;
   background: #000;
-}
-
-.inline-video-card.is-playing .video-overlay {
-  opacity: 0;
-  pointer-events: none;
+  display: block;
 }
 
 /* ==========================================================================

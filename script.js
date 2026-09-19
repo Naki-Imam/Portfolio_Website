@@ -15,53 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Direct Native Video Playback (Directly in-place, zero alignment shifts, no popups)
-  const videoCards = document.querySelectorAll('.inline-video-card');
-  const allVideos = document.querySelectorAll('.native-video-player');
-
-  videoCards.forEach(card => {
-    const video = card.querySelector('.native-video-player');
-    const overlay = card.querySelector('.video-overlay');
-
-    if (!video) return;
-
-    // Clicking overlay/play button triggers native play
-    if (overlay) {
-      overlay.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Pause any other playing video
-        allVideos.forEach(v => {
-          if (v !== video && !v.paused) {
-            v.pause();
-          }
-        });
-
-        card.classList.add('is-playing');
-        video.play().catch(err => console.log('Playback error:', err));
-      });
-    }
-
-    // Handle native video events
-    video.addEventListener('play', () => {
-      // Pause all other videos
-      allVideos.forEach(v => {
-        if (v !== video && !v.paused) {
-          v.pause();
-        }
-      });
-      card.classList.add('is-playing');
-    });
-
-    video.addEventListener('pause', () => {
-      // Keep overlay hidden while user is interacting with controls
-    });
-
-    video.addEventListener('ended', () => {
-      card.classList.remove('is-playing');
-    });
-  });
-
-  // 3. Showcase Format Filtering (Widescreen vs. Vertical vs. All)
+  // 2. Showcase Format Filtering (Widescreen vs. Vertical vs. All)
   const filterButtons = document.querySelectorAll('.filter-btn');
   const groupWidescreen = document.getElementById('group-widescreen');
   const groupVertical = document.getElementById('group-vertical');
@@ -78,15 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (groupVertical) groupVertical.style.display = 'block';
       } else if (filter === 'widescreen') {
         if (groupWidescreen) groupWidescreen.style.display = 'block';
-        if (groupVertical) {
-          groupVertical.style.display = 'none';
-          groupVertical.querySelectorAll('video').forEach(v => v.pause());
-        }
+        if (groupVertical) groupVertical.style.display = 'none';
       } else if (filter === 'vertical') {
-        if (groupWidescreen) {
-          groupWidescreen.style.display = 'none';
-          groupWidescreen.querySelectorAll('video').forEach(v => v.pause());
-        }
+        if (groupWidescreen) groupWidescreen.style.display = 'none';
         if (groupVertical) groupVertical.style.display = 'block';
       }
     });
